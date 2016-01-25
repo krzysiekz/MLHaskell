@@ -28,3 +28,17 @@ getFeaturesRow row (x:xs) =
     in case (readMaybe value :: Maybe Double) of
         Just converted -> converted : getFeaturesRow row xs
         Nothing -> error ("Not numeric value: " ++ value)
+
+predictOutput :: [[Double]] -> [Double] -> [Double]
+predictOutput = dotProduct
+
+dotProduct :: [[Double]] -> [Double] -> [Double]
+dotProduct _ [] = error "Empty array with weights"
+dotProduct [] _ = []
+dotProduct (row@(r:rs):xs) weights = dotProductRow row weights : dotProduct xs weights
+
+dotProductRow :: [Double] -> [Double] -> Double
+dotProductRow [] _ = 0
+dotProductRow row@(x:xs) weights@(y:ys)
+    | length row == length weights = x*y + dotProductRow xs ys
+    | otherwise = error "Cannot multiply matrix, wrong sizes"
