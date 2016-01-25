@@ -10,6 +10,12 @@ convertColumnToNumeric (row@(x:xs):ys) index =
         Just converted -> converted : convertColumnToNumeric ys index
         Nothing -> error ("Not numeric value: " ++ value)
 
+getColumn :: [[Double]] -> Int -> [Double]
+getColumn [] _ = []
+getColumn (row@(x:xs):ys) index =
+    let value = row!!index
+    in value : getColumn ys index
+
 getMatrixData :: [[String]] -> [Int] -> Int -> ([[Double]], [Double])
 getMatrixData [] _ _ = error "Input data is empty"
 getMatrixData _ [] _ = error "Features indexes are empty"
