@@ -7,8 +7,12 @@ import ML.SimpleLinearRegression
 
 -- Simple linear regression test
 
+trainingFileName = "resources/kc_house_train_data.csv"
+testFileName = "resources/kc_house_test_data.csv"
+
 main =
-    do (trainingFileName:testFileName:_) <- getArgs
+    do
+--        (trainingFileName:testFileName:_) <- getArgs
        training <- readFile trainingFileName
        case parseCSV training of
             Left e -> do
