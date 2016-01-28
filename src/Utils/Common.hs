@@ -38,13 +38,23 @@ getFeaturesRow row (x:xs) =
 predictOutput :: [[Double]] -> [Double] -> [Double]
 predictOutput = dotProduct
 
+-- dotProduct :: [[Double]] -> [Double] -> [Double]
+-- dotProduct _ [] = error "Empty array with weights"
+-- dotProduct [] _ = []
+-- dotProduct (row@(r:rs):xs) weights = dotProductRow row weights : dotProduct xs weights
+
+-- dotProductRow :: [Double] -> [Double] -> Double
+-- dotProductRow [] _ = 0
+-- dotProductRow row@(x:xs) weights@(y:ys)
+--     | length row == length weights = x*y + dotProductRow xs ys
+--     | otherwise = error "Cannot multiply matrix, wrong sizes"
+
+
 dotProduct :: [[Double]] -> [Double] -> [Double]
 dotProduct _ [] = error "Empty array with weights"
 dotProduct [] _ = []
-dotProduct (row@(r:rs):xs) weights = dotProductRow row weights : dotProduct xs weights
+dotProduct matrix weights = map (dotProductRow weights) matrix
 
 dotProductRow :: [Double] -> [Double] -> Double
-dotProductRow [] _ = 0
-dotProductRow row@(x:xs) weights@(y:ys)
-    | length row == length weights = x*y + dotProductRow xs ys
-    | otherwise = error "Cannot multiply matrix, wrong sizes"
+dotProductRow a b | length a == length b = sum (zipWith (*) a b)
+                  | otherwise = error "Vector sizes must match"
