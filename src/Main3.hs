@@ -1,9 +1,7 @@
 module Main where
 
-import System.Environment
 import qualified Files.CSVReader as CSVReader
 import Utils.Common
-import ML.SimpleLinearRegression
 import ML.MultipleRegression
 import Graphics.Rendering.Chart.Easy
 import Graphics.Rendering.Chart.Backend.Cairo

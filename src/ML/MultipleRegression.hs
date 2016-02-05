@@ -15,11 +15,9 @@ regressionGradientDescent featureMatrix output initialWeights stepSize tolerance
     where errors = zipWith (-) (predictOutput featureMatrix initialWeights) output
           (updatedWeights, gradientSumSquares) = updateWeights featureMatrix errors initialWeights [] 0 stepSize 0
           gradientMagnitude = sqrt gradientSumSquares
-
-updateWeights :: [[Double]] -> [Double] -> [Double] -> [Double] -> Double -> Double -> Int -> ([Double], Double)
-updateWeights _ _ [] updatedWeights gradientSumSquares _ _= (updatedWeights, gradientSumSquares)
-updateWeights featureMatrix errors weights@(x:xs) updatedWeights gradientSumSquares stepSize index =
-    updateWeights featureMatrix errors xs (updatedWeights ++ [newWeightValue]) newGradientSumSquares stepSize (index+1)
-    where derivative = computeFeatureDerivative errors $ getColumn featureMatrix index
-          newGradientSumSquares = gradientSumSquares + (derivative * derivative)
-          newWeightValue = x - (derivative * stepSize)
+          updateWeights _ _ [] updatedWeights gradientSumSquares _ _= (updatedWeights, gradientSumSquares)
+          updateWeights featureMatrix errors weights@(x:xs) updatedWeights gradientSumSquares stepSize index =
+            updateWeights featureMatrix errors xs (updatedWeights ++ [newWeightValue]) newGradientSumSquares stepSize (index+1)
+            where derivative = computeFeatureDerivative errors $ getColumn featureMatrix index
+                  newGradientSumSquares = gradientSumSquares + (derivative * derivative)
+                  newWeightValue = x - (derivative * stepSize)

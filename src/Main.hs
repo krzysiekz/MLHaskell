@@ -1,6 +1,6 @@
 module Main where
 
-import System.Environment
+-- import System.Environment
 import Files.CSVReader
 import Utils.Common
 import ML.SimpleLinearRegression

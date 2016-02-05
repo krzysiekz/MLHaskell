@@ -47,6 +47,5 @@ main =
                         let averagePrediction = foldl (\sum index -> sum + outputArrayTraining!!index) 0 (map snd (take 4 distancesWithIndexesSorted)) / 4
                         print averagePrediction
 
-
 increasedSort :: [(Double, Int)] -> [(Double, Int)]
 increasedSort = sortBy (\(x1, y1) (x2, y2) ->  x1 `compare` x2)

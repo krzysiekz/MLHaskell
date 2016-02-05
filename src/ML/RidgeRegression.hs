@@ -16,11 +16,10 @@ ridgeRegressionGradientDescent featureMatrix output initialWeights stepSize l2Pe
     | otherwise = ridgeRegressionGradientDescent featureMatrix output updatedWeights stepSize l2Penalty (maxIterations -1)
     where errors = zipWith (-) (predictOutput featureMatrix initialWeights) output
           updatedWeights = ridgeUpdateWeights featureMatrix errors initialWeights [] l2Penalty stepSize 0
-
-ridgeUpdateWeights :: [[Double]] -> [Double] -> [Double] -> [Double] -> Double -> Double -> Int -> [Double]
-ridgeUpdateWeights _ _ [] updatedWeights _ _ _= updatedWeights
-ridgeUpdateWeights featureMatrix errors weights@(x:xs) updatedWeights l2Penalty stepSize index =
-    ridgeUpdateWeights featureMatrix errors xs (updatedWeights ++ [newWeightValue]) l2Penalty stepSize (index+1)
-    where derivative = featureDerivativeRidge errors (getColumn featureMatrix index) x l2Penalty (index==0)
-          newWeightValue = x - (derivative * stepSize)
+          ridgeUpdateWeights :: [[Double]] -> [Double] -> [Double] -> [Double] -> Double -> Double -> Int -> [Double]
+          ridgeUpdateWeights _ _ [] updatedWeights _ _ _= updatedWeights
+          ridgeUpdateWeights featureMatrix errors weights@(x:xs) updatedWeights l2Penalty stepSize index =
+              ridgeUpdateWeights featureMatrix errors xs (updatedWeights ++ [newWeightValue]) l2Penalty stepSize (index+1)
+              where derivative = featureDerivativeRidge errors (getColumn featureMatrix index) x l2Penalty (index==0)
+                    newWeightValue = x - (derivative * stepSize)
 
