@@ -36,12 +36,12 @@ main =
                 plot (points "raw data" (zipWith (\ a b -> (a,b)) (getColumn sqrtLiving1 1) price))
                 plot (line "predicted" [signal (getColumn sqrtLiving1 1) (\x ->  head sqrtLiving1Weights + (x * sqrtLiving1Weights!!1))])
 
---             let sqrtLiving2 = createPolynomialMatrix sqrtLiving 2
---             let sqrtLiving2InitialWeights = [-100000, 1, 1]
---             let sqrtLiving2StepSize = 1e-17
---             let sqrtLiving2Tolerance = 0.2e19
---             let sqrtLiving2Weights = regressionGradientDescent sqrtLiving2 price sqrtLiving2InitialWeights sqrtLiving2StepSize sqrtLiving2Tolerance
---             print sqrtLiving2Weights
+            let sqrtLiving2 = createPolynomialMatrix sqrtLiving 2
+            let sqrtLiving2InitialWeights = [-100000, 1, 1]
+            let sqrtLiving2StepSize = 1e-17
+            let sqrtLiving2Tolerance = 0.2e19
+            let sqrtLiving2Weights = regressionGradientDescent sqrtLiving2 price sqrtLiving2InitialWeights sqrtLiving2StepSize sqrtLiving2Tolerance
+            print sqrtLiving2Weights
 --
 --             let sqrtLiving2Predicted = signal (getColumn sqrtLiving2 1) (\x ->  head sqrtLiving2Weights + (x * sqrtLiving2Weights!!1) + ((x**2) * sqrtLiving2Weights!!2))
 --             let sqrtLiving2PredictedSorted = increasedSort sqrtLiving2Predicted
